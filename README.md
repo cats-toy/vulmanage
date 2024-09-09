@@ -1,5 +1,6 @@
 # Vulnerability Management
   * Vulnerability management project within a homelab
+  * Simulated attacks on exposed hosts and followed protocol to deal with the attacks.
 
 <h1 align='center'>Overview</h1>
 Using a homelab made in VirtualBox, I've set up a vulnerability scanner, Nessus, and an EDR solution, LimaCharlie, which also operates as a SIEM. 
