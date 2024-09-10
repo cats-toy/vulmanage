@@ -20,9 +20,24 @@ Import plugins and system updates to access new scans.<br>
 Configured scans to scan for MS2 host and Windows host.<br>
 
 <p align='center'><strong>Exploiting MS2</strong></p>
-Used netdiscover to find MS2 host i.e netdiscover -r [subnet range] <br>
+Used netdiscover to find MS2 host(10.0.2.7) i.e netdiscover -r [subnet range] <br>
+<img src='https://imgur.com/uILufgP.png'
+ width='80%'
+ height='40%'
+ alt='netdiscover results for MS2'
+ >
 Scanning using Nessus revealed 30 open ports on MS2, verified this by using nmap to find all open ports.<br>
+<img src='https://imgur.com/TXKViCb.png'
+ width='80%'
+ height='80%'
+ alt='Nessus scan results'
+ >
 Used hydra to access MS2 via FTP port and used the Metasploit console to set up a remote host and exploit the MS2 host<br>
+<img src='https://imgur.com/70yZgj5.png'
+ width='80%'
+ height='40%'
+ alt='hydra output'
+ >
 Post attack, closed vulnerable ports and updated rules on nessus to check for outbound connections.<br>
 
 <h1 align='center'>Windows and LimaCharlie</h1>
