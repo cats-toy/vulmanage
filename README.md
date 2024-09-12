@@ -3,8 +3,8 @@
   * Simulated attacks on exposed hosts and followed protocol to deal with the attacks.
 
 <h1 align='center'>Overview</h1>
-Using a homelab made in VirtualBox, I've set up a vulnerability scanner, Nessus, and an EDR solution, LimaCharlie, which also operates as a SIEM. 
-Using a KALI VM(Virtual Machine), I attacked my exposed Windows VM with several payloads, generating activity which can be logged and analyzed using the previously mentioned software.
+Using a homelab made in VirtualBox, I've set up a vulnerability scanner, Nessus, and a SIEM platform, LimaCharlie along with Sysmon. 
+Using a KALI VM(Virtual Machine), I attacked my exposed Windows VM with several payloads, generating activity which can be logged and analyzed using Nessus and LimaCharlie.
 Post attack, I made new alerts to detect for future attacks.
 
 ## <h1 align='center'><strong>MS2 and Nessus</strong></h1>
@@ -13,10 +13,12 @@ Post attack, I made new alerts to detect for future attacks.
  * MS2: Metasploitable host
 
 <p align='center'><strong>KALI VM setup</strong></p>
-Installed Nessus to scan for hosts on internal network
+Installed KALI ISO and made a new VM with Oracle Virtualbox<br>
+Changed the network configurations for the VMs to only use an internal network to isolate the hosts between each other.<br>
+Installed Nessus on KALI to scan for hosts on internal network
 <br>All hosts are in a shared internal network to prevent payloads from leaking into main network.<br>
 Made a new account with Tennable port during installation for Nessus<br>
-Import plugins and system updates to access new scans.<br>
+Imported plugins and system updates to access new scans.<br>
 Configured scans to scan for MS2 host and Windows host.<br>
 
 <p align='center'><strong>Exploiting MS2</strong></p>
@@ -42,11 +44,13 @@ Post attack, closed vulnerable ports and updated rules on nessus to check for ou
 
 <h1 align='center'>Windows and LimaCharlie</h1>
 <p>Vulnerable Windows VM<br>
- -Turned off Windows Defender and related security software to prepare the host for attacks.</p>
-<p>LimaCharlie <br>
- -Installed the agent on the Windows host to link it to the LimaCharlie cloud and use its telemetry.</p>
+ -Turned off Windows Defender and related security software to prepare the host for attacks.<br>
+ -Installed Sysmon via powershell to integrate with LimaCharlie.</p>
 
-<h1>KALI VM attack vector</h1>
+<p>LimaCharlie <br>
+ -Installed the agent on the Windows host to link it to the LimaCharlie cloud and use its telemetry. Observing the data logs in the KALI VM.</p>
+
+<h1 align='center'>Sliver Server</h1>
 <p>On the KALI VM, I installed a Sliver server and created payloads to exploit the Windows VM. Opened a temporary python webserver on KALI to allow the Windows VM to download  and start payload.<br>
 On LimaCharlie, I was able to find the payload being downloaded and see its source i.p as well as checking the hash of my created payload against a virus database.</p>
 <p>Back in the KALI VM, the Sliver server was set to listen to port 80 where the payload was downloaded. After the payload was installed, I started a session in the Windows VM via the Sliver server, allowing me to write commands such as whoami and getprivs. </p>
